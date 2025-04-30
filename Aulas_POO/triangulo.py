@@ -1,6 +1,15 @@
 class Triangulo:
-    def __init__(self):
-        self.__b=0 
+    def __init__(self): #def __init__(self, b, h):
+        """
+        #opção 1 repetir o códgio set
+        if b>0:
+            self.__b=b
+        else:
+            raise ValueError("A base deve ser positiva")
+        #opção 2 chamar o método set
+        self.set_altura(self, h)
+        """
+        self.__b=0
         self.__h=0
 
     def set_base(self, v):
