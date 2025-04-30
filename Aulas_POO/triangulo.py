@@ -24,4 +24,8 @@ class Triangulo:
 
     def calc_area(self):
         return self.__b * self.__h / 2
+    
+    def __str__(self):
+        return "Olá, eu calculo a área de um triângulo!"
+
     pass

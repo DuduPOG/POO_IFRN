@@ -26,9 +26,13 @@ class UI:
 
         print()
 
+        print(x)
+
+        print()
+        
         print(f"Base do triângulo: {x.get_base():.2f}")
         print(f"Altura do triângulo: {x.get_altura():.2f}")
-        print(f"Área do triângulo: {x.calc_area():.2f}")
+        print(f"Área do triângulo: {x.calc_area():.2f}\n")
         
     @staticmethod
     def retangulo():
