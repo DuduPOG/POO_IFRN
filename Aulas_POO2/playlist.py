@@ -25,9 +25,54 @@ class Musica:
 
     def __str__(self):
         return f"{self.__titulo} - {self.__artista} - {self.__album}"
+    
+    pass
 
+class UI:
+    @staticmethod
+    def menu():
+        return int(input("Selecione uma ação: 1-Criar Playlist, 2-Inserir música, 3-Listar músicas, 10-Fim\n"))
+    
+    @staticmethod
+    def main():
+        op=0
+        x = None
+        while op!=10:
+            op=UI.menu()
+            if op==1:  
+                x=UI.criar_playlist()
+            elif op==2:
+                if x==None:
+                    print("Crie uma playlist antes de inserir as músicas!")
+                UI.inserir_musica(x)
+            elif op==3:
+                if x==None:
+                    print("Crie uma playlist antes de listar as músicas!")
+                UI.listar_musicas(x)
 
+    @staticmethod
+    def criar_playlist():
+        nome = input("Informe o nome da playlist: ")
+        descricao = input("Informe uma descrição: ")
+        x=PlayList(nome, descricao)
+        return x
+    
+    @staticmethod
+    def inserir_musica(x):
+        titulo = input("Informe o título da música: ")
+        artista = input("Informe o artista/banda da música: ")
+        album = input("Informe o álbum: ")
+        musica = Musica(titulo, artista, album)
+        x.inserir(musica)
 
+    @staticmethod
+    def listar_musicas(x):
+        for musica in x.listar():
+            print(" ", musica)
+
+UI.main()
+
+"""
 x=PlayList("Rock", "Minhas músicas de rock preferidas")
 y=PlayList("Axé", "Show Ivete Sangalo - Maracanã")
 
@@ -46,3 +91,4 @@ for musica in x.listar():
 print(y)
 for musica in y.listar():
     print(" ",musica)
+"""
