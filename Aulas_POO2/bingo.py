@@ -1,14 +1,19 @@
 import random
 class Bingo:
     def __init__(self,num_bolas,lista):
+        if num_bolas < 1:
+            raise ValueError("O número de bolas deve ser positivo")
         self.__num_bolas=int(num_bolas)
         self.__bolas=lista
         self.__sorteadas=[]
 
-    def proximo(self,x):
-        y=random.choice(self.__bolas)
-        self.__bolas.remove(y)
-        self.__sorteadas.append(y)
+    def proximo(self):
+        i = 0
+        while i < self.__num_bolas:
+            y=random.choice(self.__bolas)
+            self.__sorteadas.append(y)
+            self.__bolas.remove(y)
+            i += 1
         return y
         
 
