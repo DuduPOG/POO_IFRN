@@ -25,8 +25,8 @@ print(b)
 print()
 
 #p = input("Informe sua data no formato dd/mm/YYYY\n")
-#p = "12/05/2025, 16:30"
-p = input("Informe sua data e hora de nascimento no formato dd/mm/YYYY, %H:%M\n")
+p = "12/05/2025, 16:30"
+#p = input("Informe sua data e hora de nascimento no formato dd/mm/YYYY, %H:%M\n")
 c = datetime.strptime(p, "%d/%m/%Y, %H:%M")
 print(p)
 print()
@@ -52,4 +52,4 @@ print(c) #datetime
 print(x + c) #timedelta + datetime = datetime
 
 hoje = datetime.today()
-print(hoje - p)
+print(hoje + x)
