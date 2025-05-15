@@ -31,7 +31,7 @@ class Carrinho:
     def remover_item(self, v):
         if self.__itens == []:
             raise ValueError("Não é possível remover itens de um carrinho vazio")
-        elif v is not self.__itens:
+        elif v not in self.__itens:
             raise ValueError("Não é possível remover um item que não está no carrinho")
         else:
             self.__itens.remove(v)
@@ -89,7 +89,7 @@ class Item:
         return self.__qtd * self.__preco
 
     def __str__(self):
-        s = f"Este é produto: {self.__produto}, tem um preço unitário de: R$ {self.__preco:.2f},"
+        s = f"Este é produto {self.__produto}, tem um preço unitário de: R$ {self.__preco:.2f},"
         s += f" foi/foram adicionada(s) {self.__qtd} unidade(s), custando no total: R$ {self.custo_total():.2f}\n" 
         return s
 
@@ -117,8 +117,13 @@ a.set_qtd(1)
 a.set_preco(20)
 x.inserir_item(a)
 
+x.remover_item(z)
+
+
 print(x)
 print()
-
+print(f"Este foi o custo total do carrinho de compras: R${x.custo_total():.2f}")
+print()
+print("Itens do carrinho:")
 for itens in x.listar_itens():
     print(itens)
