@@ -4,7 +4,13 @@ class UI:
 
     @staticmethod
     def menu():
-        return int(input("Qual das seguintes opções você deseja executar?\n1. Inserir cliente\n2. Excluir cliente\n3. Atualizar cliente\n4. Listar clientes\n10. Encerrar programa.\n"))
+        s = f"Qual das seguintes opções você deseja executar?\n"
+        s += f"1. Inserir cliente\n"
+        s += f"2. Excluir cliente\n"
+        s += f"3. Atualizar cliente\n"
+        s += f"4. Listar clientes\n"
+        s += f"10. Encerrar programa.\n"
+        return int(input(s))
     
     @staticmethod
     def main():
