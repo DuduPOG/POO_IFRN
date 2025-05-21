@@ -1,0 +1,41 @@
+import classes
+
+class UI:
+
+    @staticmethod
+    def menu():
+        return int(input("Qual das seguintes opções você deseja executar?\n1. Inserir cliente\n2. Excluir cliente\n3. Atualizar cliente\n4. Listar clientes\n10. Encerrar programa.\n"))
+    
+    @staticmethod
+    def main():
+        op = UI.menu()
+        while op != 10:
+            if op == 1:
+                UI.cliente_inserir()
+            elif op == 2:
+                UI.cliente_excluir()
+            elif op == 3:
+                UI.cliente_atualizar()
+            elif op == 4:
+                UI.cliente_listar()
+
+    @staticmethod
+    def cliente_listar():
+        x = 1
+
+    @staticmethod
+    def cliente_inserir():
+        x = 1
+
+    @staticmethod
+    def cliente_atualizar():
+        x = 1
+    
+    @staticmethod
+    def cliente_excluir():
+        x = 1
+
+
+    pass
+
+UI.main()
