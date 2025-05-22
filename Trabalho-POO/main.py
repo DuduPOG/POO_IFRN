@@ -1,21 +1,23 @@
-import classes
+from classes import Cliente, Clientes
+import json
 
 class UI:
 
     @staticmethod
     def menu():
         s = f"Qual das seguintes opções você deseja executar?\n"
-        s += f"1. Inserir cliente\n"
-        s += f"2. Excluir cliente\n"
-        s += f"3. Atualizar cliente\n"
-        s += f"4. Listar clientes\n"
+        s += f"1. Inserir cliente;\n"
+        s += f"2. Excluir cliente;\n"
+        s += f"3. Atualizar cliente;\n"
+        s += f"4. Listar clientes;\n"
         s += f"10. Encerrar programa.\n"
-        return int(input(s))
+        return int(input(f"{s}\nInsira sua escolha: "))
     
     @staticmethod
     def main():
-        op = UI.menu()
+        op = 0
         while op != 10:
+            op = UI.menu()
             if op == 1:
                 UI.cliente_inserir()
             elif op == 2:
@@ -27,11 +29,20 @@ class UI:
 
     @staticmethod
     def cliente_listar():
-        x = 1
+        print("Estes são todos os clientes cadastrados:")
+        for c in Clientes.listar():
+            print(c)
 
     @staticmethod
     def cliente_inserir():
-        x = 1
+        id = int(input("Informe o ID do cliente: "))
+        nome = input("Informe seu nome: ")
+        email = input("Informe seu email: ")
+        fone = input("Informe seu telefone: ")
+        x = Cliente(id, nome, email, fone)
+        Clientes.inserir(x)
+        #with open("clientes.json", "w") as f:
+         #   json.dump(x.__dict__, f)
 
     @staticmethod
     def cliente_atualizar():
