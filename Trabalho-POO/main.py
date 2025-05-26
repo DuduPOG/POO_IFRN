@@ -35,22 +35,29 @@ class UI:
 
     @staticmethod
     def cliente_inserir():
-        id = int(input("Informe o ID do cliente: "))
+        #id = int(input("Informe o ID do cliente: "))
         nome = input("Informe seu nome: ")
         email = input("Informe seu email: ")
         fone = input("Informe seu telefone: ")
         x = Cliente(id, nome, email, fone)
         Clientes.inserir(x)
-        #with open("clientes.json", "w") as f:
-         #   json.dump(x.__dict__, f)
 
     @staticmethod
     def cliente_atualizar():
-        x = 1
+        UI.cliente_listar
+        id = int(input("Informe o ID do cliente a ser atualizado: "))
+        nome = input("Informe seu novo nome: ")
+        email = input("Informe seu novo email: ")
+        fone = input("Informe seu novo telefone: ")
+        c = Cliente(id, nome, email, fone)
+        Clientes.atualizar(c)
     
     @staticmethod
     def cliente_excluir():
-        x = 1
+        UI.cliente_listar
+        id = int(input("Informe o ID do cliente que será excluído: "))
+        c = Cliente(id, "", "", "")
+        Clientes.excluir(c)
 
 
     pass
