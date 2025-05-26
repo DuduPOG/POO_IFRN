@@ -13,6 +13,7 @@ class UI:
         s += f"10. Encerrar programa.\n"
         return int(input(f"{s}\nInsira sua escolha: "))
     
+    
     @staticmethod
     def main():
         op = 0
@@ -27,11 +28,13 @@ class UI:
             elif op == 4:
                 UI.cliente_listar()
 
+
     @staticmethod
     def cliente_listar():
         print("Estes são todos os clientes cadastrados:")
         for c in Clientes.listar():
             print(c)
+
 
     @staticmethod
     def cliente_inserir():
@@ -42,6 +45,7 @@ class UI:
         x = Cliente(id, nome, email, fone)
         Clientes.inserir(x)
 
+
     @staticmethod
     def cliente_atualizar():
         UI.cliente_listar
@@ -51,6 +55,7 @@ class UI:
         fone = input("Informe seu novo telefone: ")
         c = Cliente(id, nome, email, fone)
         Clientes.atualizar(c)
+
     
     @staticmethod
     def cliente_excluir():
@@ -58,7 +63,6 @@ class UI:
         id = int(input("Informe o ID do cliente que será excluído: "))
         c = Cliente(id, "", "", "")
         Clientes.excluir(c)
-
 
     pass
 
