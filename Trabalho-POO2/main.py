@@ -1,5 +1,7 @@
 from datetime import datetime
-from classes import Cliente, Clientes, Categoria, Categorias, Produto, Produtos
+from categoria import Categoria, Categorias
+from cliente import Cliente, Clientes
+from produto import Produto, Produtos
 
 class UI:
 

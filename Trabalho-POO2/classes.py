@@ -1,3 +1,4 @@
+"""
 from datetime import datetime
 import json
 
@@ -173,7 +174,7 @@ class Venda:
     def __str__(self):
         return f"{self.id} - {self.data} - {self.carrinho} - {self.total} - {self.id_cliente}"
     
-"""
+
 class Vendas:
 
     objetos = []
@@ -315,7 +316,7 @@ class VendaItens:
         with open("comercio_eletronico.json", mode="w") as arquivo:
             json.dump(cls.objetos, arquivo, default = vars)
 
-"""
+
 
 class Produto:
 
@@ -397,3 +398,5 @@ class Produtos:
     def salvar(cls):
         with open("comercio_eletronico.json", mode="w") as arquivo:
             json.dump(cls.objetos, arquivo, default = vars)
+
+"""
