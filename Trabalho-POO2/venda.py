@@ -3,16 +3,25 @@ import json
 
 class Venda:
 
-    def __init__(self, id, data, total):
+    def __init__(self, id):
         self.id = id
-        self.data = data
+        self.data = datetime.now()
         self.carrinho = True
-        self.total = total
+        self.total = 0
         self.id_cliente = 0
 
 
+    def to_json(self):
+        dic = {}
+        dic["id"] = self.id
+        dic["data"] = self.data.strftime("%d/%m/%Y %H:%M")
+        dic["carrinho"] = self.carrinho
+        dic["total"] = self.total
+        dic["id_cliente"] = self.id_cliente
+        return dic
+
     def __str__(self):
-        return f"{self.id} - {self.data} - {self.carrinho} - {self.total} - {self.id_cliente}"
+        return f"{self.id} - {self.data.strftime("%d/%m/%Y %H:%M")} - {self.carrinho} - {self.total} - {self.id_cliente}"
     
 
 class Vendas:
@@ -69,11 +78,15 @@ class Vendas:
         with open("vendas.json", mode="r") as arquivo:
             s = json.load(arquivo)
             for dic in s: 
-                c = Venda(dic["id"], dic["data"], dic["carrinho"], dic["total"], dic["id_cliente"])
+                c = Venda(dic["id"])
+                c.data = datetime.strptime(dic["data"], "%d/%m/%Y %H:%M")
+                c.carrinho = dic["carrinho"]
+                c.total = dic["total"]
+                c.id_cliente = dic["id_cliente"]
                 cls.objetos.append(c)
 
 
     @classmethod
     def salvar(cls):
         with open("vendas.json", mode="w") as arquivo:
-            json.dump(cls.objetos, arquivo, default = vars)
+            json.dump(cls.objetos, arquivo, default = Venda.to_json)

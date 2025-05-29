@@ -2,9 +2,11 @@ from datetime import datetime
 from categoria import Categoria, Categorias
 from cliente import Cliente, Clientes
 from produto import Produto, Produtos
+from venda import Venda, Vendas
+from venda_item import VendaItem, VendaItens
 
 class UI:
-
+    carrinho = None #atributo de classe
     @staticmethod
     def menu():
         s = f"Qual das seguintes opções você deseja executar?\n"
@@ -20,6 +22,10 @@ class UI:
         s += f"10. Excluir produto;\n"
         s += f"11. Atualizar produto;\n"
         s += f"12. Listar produtos;\n"
+        s += f"\n13. Iniciar carrinho de compras;\n"
+        s += f"14. Listar as compras\n"
+        s += f"15. Inserir produto no carrinho;\n"
+        s += f"16. Confirmar compra;\n"
         s += f"\n100. Encerrar programa.\n"
         return int(input(f"{s}\nInsira sua escolha: "))
     
@@ -53,6 +59,14 @@ class UI:
                 UI.produto_atualizar()
             elif op == 12:
                 UI.produto_listar()
+            elif op == 13:
+                UI.iniciar_compra()
+            elif op == 14:
+                UI.listar_compras()
+            elif op == 15:
+                UI.venda_item_inserir()
+            elif op == 16:
+                UI.confirmar_compra()
 
 
 
@@ -164,6 +178,54 @@ class UI:
     def produto_listar():#Read
         print("Estes são todos os produtos disponíveis:")
         for c in Produtos.listar():
+            print(c)
+
+
+    #CRUD de Venda
+    @classmethod
+    def iniciar_compra(cls):#Create
+        v = Venda(0)        
+        Vendas.inserir(v)
+        cls.carrinho = v
+
+
+    @classmethod
+    def venda_item_inserir(cls):
+        print("O produto vai ser inserido nesse carrinho: ", cls.carrinho)
+        """
+        UI.produto_listar
+        id_produto = int(input("Insira o ID do produto desejado: "))
+        id_categoria = int(input("Insira o ID da categoria do produto: "))
+        qtd = int(input("Qual a quantidade do produto desejada?: "))
+        x = VendaItem(0, qtd, qtd*2, id_categoria, id_produto)
+        """
+
+
+    
+    @staticmethod
+    def cancelar_compra():#Delete
+        UI.listar_compras
+        id = int(input("Informe o ID da venda que será excluída: "))
+        c = Venda(id, "", "", "")
+        Vendas.excluir(c)
+
+
+    @staticmethod
+    def mudar_compra():#Update
+        UI.listar_compras
+        id = int(input("Informe o ID da compra a ser atualizada: "))
+        data = datetime.now()
+        carrinho = True
+        UI.cliente_listar
+        id_cliente = int(input("Informe seu novo ID (caso queira trocar): "))
+        c = Venda(id, data, carrinho, id_cliente)
+        Vendas.atualizar(c)
+
+
+    @staticmethod
+    def listar_compras():#Read
+        print("Estas são todas as Vendas:")
+        for c in Vendas.listar():
             print(c)
 
 

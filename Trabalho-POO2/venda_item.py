@@ -2,12 +2,12 @@ import json
 
 class VendaItem:
 
-    def __init__(self, id, qtd, preco):
+    def __init__(self, id, qtd, preco, id_venda, id_produto):
         self.id = id
         self.qtd = qtd
         self.preco = preco
-        self.id_venda = 0
-        self.id_produto = 0
+        self.id_venda = id_venda
+        self.id_produto = id_produto
 
 
     def __str__(self):
