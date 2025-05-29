@@ -135,7 +135,7 @@ class UI:
         estoque = input("Informe a quantidade no estoque: ")
         UI.categoria_listar()
         id_categoria = int(input("Informe o ID da categoria desejada: "))
-        x = Produto(id, desc, preco, estoque, id_categoria)
+        x = Produto(0, desc, preco, estoque, id_categoria)
         Produtos.inserir(x)
 
     

@@ -65,7 +65,7 @@ class VendaItens:
     @classmethod
     def abrir(cls):
         cls.objetos = []    
-        with open("comercio_eletronico.json", mode="r") as arquivo:
+        with open("venda_itens.json", mode="r") as arquivo:
             s = json.load(arquivo)
             for dic in s: 
                 c = VendaItem(dic["id"], dic["qtd"], dic["preco"], dic["id_venda"], dic["id_produto"])
@@ -74,5 +74,5 @@ class VendaItens:
 
     @classmethod
     def salvar(cls):
-        with open("comercio_eletronico.json", mode="w") as arquivo:
+        with open("venda_itens.json", mode="w") as arquivo:
             json.dump(cls.objetos, arquivo, default = vars)

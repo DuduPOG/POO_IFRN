@@ -2,12 +2,12 @@ import json
 
 class Produto:
 
-    def __init__(self, id, desc, preco, estoque):
+    def __init__(self, id, desc, preco, estoque, id_categoria):
         self.id = id
         self.desc = desc
         self.preco = preco
         self.estoque = estoque
-        self.id_categoria = 0
+        self.id_categoria = id_categoria
 
 
     def __str__(self):
@@ -69,8 +69,7 @@ class Produtos:
             with open("produtos.json", mode="r") as arquivo:
                 s = json.load(arquivo)
                 for dic in s: 
-                    c = Produto(dic["id"], dic["desc"], dic["preco"], dic["estoque"])
-                    c.id_categoria = dic["id_categoria"]
+                    c = Produto(dic["id"], dic["desc"], dic["preco"], dic["estoque"], dic["id_categoria"])
                     cls.objetos.append(c)
         except FileNotFoundError:
             pass

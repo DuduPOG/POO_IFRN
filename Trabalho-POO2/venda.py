@@ -1,11 +1,12 @@
+from datetime import datetime
 import json
 
 class Venda:
 
-    def __init__(self, id, data, carrinho, total):
+    def __init__(self, id, data, total):
         self.id = id
         self.data = data
-        self.carrinho = carrinho
+        self.carrinho = True
         self.total = total
         self.id_cliente = 0
 
@@ -65,7 +66,7 @@ class Vendas:
     @classmethod
     def abrir(cls):
         cls.objetos = []    
-        with open("comercio_eletronico.json", mode="r") as arquivo:
+        with open("vendas.json", mode="r") as arquivo:
             s = json.load(arquivo)
             for dic in s: 
                 c = Venda(dic["id"], dic["data"], dic["carrinho"], dic["total"], dic["id_cliente"])
@@ -74,5 +75,5 @@ class Vendas:
 
     @classmethod
     def salvar(cls):
-        with open("comercio_eletronico.json", mode="w") as arquivo:
+        with open("vendas.json", mode="w") as arquivo:
             json.dump(cls.objetos, arquivo, default = vars)
