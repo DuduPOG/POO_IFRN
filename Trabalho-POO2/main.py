@@ -9,30 +9,32 @@ class UI:
     carrinho = None #atributo de classe
     @staticmethod
     def menu():
-        s = f"Qual das seguintes opções você deseja executar?\n"
-        s += f"\n1. Inserir cliente;\n"
-        s += f"2. Excluir cliente;\n"
-        s += f"3. Atualizar cliente;\n"
-        s += f"4. Listar clientes;\n"
-        s += f"\n5. Inserir categoria;\n"
-        s += f"6. Excluir categoria;\n"
-        s += f"7. Atualizar categoria;\n"
-        s += f"8. Listar categorias;\n"
-        s += f"\n9. Inserir produto;\n"
-        s += f"10. Excluir produto;\n"
-        s += f"11. Atualizar produto;\n"
-        s += f"12. Listar produtos;\n"
-        s += f"\n13. Iniciar carrinho de compras;\n"
-        s += f"14. Listar as compras\n"
-        s += f"15. Inserir produto no carrinho;\n"
-        s += f"16. Confirmar compra;\n"
-        s += f"\n100. Encerrar programa.\n"
+        s = f"\nQual das seguintes opções você deseja executar?\n"
+        s += f"\n          1. Inserir cliente;\n"
+        s += f"          2. Excluir cliente;\n"
+        s += f"          3. Atualizar cliente;\n"
+        s += f"          4. Listar clientes;\n"
+        s += f"\n          5. Inserir categoria;\n"
+        s += f"          6. Excluir categoria;\n"
+        s += f"          7. Atualizar categoria;\n"
+        s += f"          8. Listar categorias;\n"
+        s += f"\n          9. Inserir produto;\n"
+        s += f"          10. Excluir produto;\n"
+        s += f"          11. Atualizar produto;\n"
+        s += f"          12. Listar produtos;\n"
+        s += f"\n          13. Iniciar carrinho de compras;\n"
+        s += f"          14. Listar os itens do pedido\n"
+        s += f"          15. Inserir produto no carrinho;\n"
+        s += f"          16. Visualizar carrinho;\n"
+        s += f"          17. Confirmar compra;\n"
+        s += f"\n          100. Encerrar o programa.\n"
         return int(input(f"{s}\nInsira sua escolha: "))
     
     
     @staticmethod
     def main():
         op = 0
+        cls = 0
         while op != 100:
             op = UI.menu()
             if op == 1:
@@ -64,8 +66,10 @@ class UI:
             elif op == 14:
                 UI.listar_compras()
             elif op == 15:
-                UI.venda_item_inserir()
+                UI.inserir_no_carrinho(cls)
             elif op == 16:
+                UI.visualizar_carrinho()
+            elif op == 17:
                 UI.confirmar_compra()
 
 
@@ -189,44 +193,49 @@ class UI:
         cls.carrinho = v
 
 
-    @classmethod
-    def venda_item_inserir(cls):
-        print("O produto vai ser inserido nesse carrinho: ", cls.carrinho)
-        """
-        UI.produto_listar
-        id_produto = int(input("Insira o ID do produto desejado: "))
-        id_categoria = int(input("Insira o ID da categoria do produto: "))
-        qtd = int(input("Qual a quantidade do produto desejada?: "))
-        x = VendaItem(0, qtd, qtd*2, id_categoria, id_produto)
-        """
-
-
-    
-    @staticmethod
-    def cancelar_compra():#Delete
-        UI.listar_compras
-        id = int(input("Informe o ID da venda que será excluída: "))
-        c = Venda(id, "", "", "")
-        Vendas.excluir(c)
-
-
-    @staticmethod
-    def mudar_compra():#Update
-        UI.listar_compras
-        id = int(input("Informe o ID da compra a ser atualizada: "))
-        data = datetime.now()
-        carrinho = True
-        UI.cliente_listar
-        id_cliente = int(input("Informe seu novo ID (caso queira trocar): "))
-        c = Venda(id, data, carrinho, id_cliente)
-        Vendas.atualizar(c)
-
-
     @staticmethod
     def listar_compras():#Read
         print("Estas são todas as Vendas:")
         for c in Vendas.listar():
             print(c)
+
+
+    @classmethod
+    def visualizar_carrinho(cls):
+        if cls.carrinho != None:
+            print("O produto vai ser inserido nesse carrinho: ", cls.carrinho)
+            for item in VendaItens.listar():
+                if item.id_venda == cls.carrinho.id:
+                    id_produto = item.id_produto
+                    descricao = Produtos.listar_id(id_produto).descricao
+                    print(f"   {descricao} - Quantidade: {item.qtd} - Preço: R$ {item.preco:.2f}")
+        else:
+            print("Você precisar criar um carrinho primeiro!")
+            return
+
+
+    
+    @staticmethod
+    def inserir_no_carrinho(cls):#Delete
+        UI.produto_listar()
+        id_produto = int(input("Informe o id do produto desejado: "))
+        qtd = int(input("Informe a quantidade desejada: "))
+        preco = Produtos.listar_id(id_produto).preco
+        vi = VendaItem(0, qtd, preco)
+        vi.id_venda = cls.carrinho.id
+        vi.id_produto = id_produto
+        VendaItens.inserir(vi)
+        #atualizar o total da venda (carrinho)
+        subtotal = qtd * preco
+        cls.carrinho.total += subtotal
+        Vendas.salvar()
+
+
+    def confirmar_comprar():
+        pass
+    # dever de casa, na venda (carrinho), colocar o atributo carrinho para False
+    #percorrer os itens da venda (vendaitem.qtd) e baixar o estoque no cadastro de produto (produto.estoque)
+
 
 
 UI.main()

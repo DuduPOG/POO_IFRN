@@ -2,12 +2,12 @@ import json
 
 class VendaItem:
 
-    def __init__(self, id, qtd, preco, id_venda, id_produto):
+    def __init__(self, id, qtd, preco):
         self.id = id
         self.qtd = qtd
         self.preco = preco
-        self.id_venda = id_venda
-        self.id_produto = id_produto
+        self.id_venda = 0
+        self.id_produto = 0
 
 
     def __str__(self):
@@ -68,7 +68,9 @@ class VendaItens:
         with open("venda_itens.json", mode="r") as arquivo:
             s = json.load(arquivo)
             for dic in s: 
-                c = VendaItem(dic["id"], dic["qtd"], dic["preco"], dic["id_venda"], dic["id_produto"])
+                c = VendaItem(dic["id"], dic["qtd"], dic["preco"])
+                c.id_venda = dic["id_venda"]
+                c.id_produto = dic["id_produto"]
                 cls.objetos.append(c)
 
 
