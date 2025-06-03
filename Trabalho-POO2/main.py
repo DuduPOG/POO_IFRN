@@ -231,7 +231,8 @@ class UI:
         Vendas.salvar()
 
 
-    def confirmar_comprar():
+    def confirmar_comprar(cls):
+        
         pass
     # dever de casa, na venda (carrinho), colocar o atributo carrinho para False
     #percorrer os itens da venda (vendaitem.qtd) e baixar o estoque no cadastro de produto (produto.estoque)
