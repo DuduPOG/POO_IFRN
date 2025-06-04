@@ -3,6 +3,7 @@ from cliente import Cliente, Clientes
 from produto import Produto, Produtos
 from venda import Venda, Vendas
 from venda_item import VendaItem, VendaItens
+from login import Login, Logins
 
 class UI:
     carrinho = None #atributo de classe
@@ -26,6 +27,10 @@ class UI:
         s += f"          15. Inserir produto no carrinho;\n"
         s += f"          16. Visualizar carrinho;\n"
         s += f"          17. Confirmar compra;\n"
+        s += f"\n          20. Iniciar Login;\n"
+        s += f"          21. Excluir Login;\n"
+        s += f"          22. Atualizar Login;\n"
+        s += f"          23. Listar Logins;\n"
         s += f"\n          100. Encerrar o programa.\n"
         return int(input(f"{s}\nInsira sua escolha: "))
     
@@ -69,6 +74,14 @@ class UI:
                 UI.visualizar_carrinho()
             elif op == 17:
                 UI.confirmar_compra()
+            elif op == 20:
+                UI.iniciar_login()
+            elif op == 21:
+                UI.excluir_login()
+            elif op == 22:
+                UI.atualizar_login()
+            elif op == 23:
+                UI.listar_logins()
 
 
 
@@ -215,18 +228,22 @@ class UI:
     
     @classmethod
     def inserir_no_carrinho(cls):
-        UI.produto_listar()
-        id_produto = int(input("Informe o id do produto desejado: "))
-        qtd = int(input("Informe a quantidade desejada: "))
-        preco = float(Produtos.listar_id(id_produto).preco)
-        vi = VendaItem(0, qtd, preco)
-        vi.id_venda = cls.carrinho.id
-        vi.id_produto = id_produto
-        VendaItens.inserir(vi)
-        #atualizar o total da venda (carrinho)
-        subtotal = qtd * preco
-        cls.carrinho.total += subtotal
-        Vendas.atualizar(cls.carrinho)
+        if cls.carrinho != None:
+            UI.produto_listar()
+            id_produto = int(input("Informe o id do produto desejado: "))
+            qtd = int(input("Informe a quantidade desejada: "))
+            preco = float(Produtos.listar_id(id_produto).preco)
+            vi = VendaItem(0, qtd, preco)
+            vi.id_venda = cls.carrinho.id
+            vi.id_produto = id_produto
+            VendaItens.inserir(vi)
+            #atualizar o total da venda (carrinho)
+            subtotal = qtd * preco
+            cls.carrinho.total += subtotal
+            Vendas.atualizar(cls.carrinho)
+        else:
+            print("Você precisa criar um carrinho primeiro!")
+            return
 
     @classmethod
     def confirmar_compra(cls):
@@ -243,6 +260,40 @@ class UI:
         pass
     # dever de casa, na venda (carrinho), colocar o atributo carrinho para False
     #percorrer os itens da venda (vendaitem.qtd) e baixar o estoque no cadastro de produto (produto.estoque)
+
+
+    #CRUD de login
+    @staticmethod
+    def iniciar_login():#Create
+        user = input("Insira um nome de usuário: ")
+        password = input("Insira uma senha para seu login: ")
+        x = Login(0, user, password)
+        Logins.inserir(x)
+
+    
+    @staticmethod
+    def excluir_login():#Delete
+        UI.listar_logins
+        id = int(input("Informe o ID do login que será excluído: "))
+        c = Login(id, "", "")
+        Logins.excluir(c)
+
+
+    @staticmethod
+    def atualizar_login():#Update
+        UI.listar_logins
+        id = input("Insira o ID do login que será atualizado: ")
+        user = input("Insira um novo nome de usuário: ")
+        password = input("Insira uma nova senha: ")
+        c = Login(id, user, password)
+        Logins.atualizar(c)
+
+
+    @staticmethod
+    def listar_logins():#Read
+        print("Estes são todos os logins feitos:")
+        for c in Logins.listar():
+            print(c)
 
 
 
