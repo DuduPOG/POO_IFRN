@@ -21,11 +21,11 @@ class Clientes:
     @classmethod
     def inserir(cls, obj):
         cls.abrir()
-        maior = 0
-        for id in cls.objetos:
-            if id.id > maior:
-                maior = id.id
-            id.id = maior + 1
+        if cls.objetos:
+            maior = max(cliente.id for cliente in cls.objetos)
+            obj.id = maior + 1
+        else:
+            obj.id = 0
         cls.objetos.append(obj)
         cls.salvar() 
 

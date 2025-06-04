@@ -1,5 +1,4 @@
 from classes import Cliente, Clientes
-import json
 
 class UI:
 
@@ -42,7 +41,7 @@ class UI:
         nome = input("Informe seu nome: ")
         email = input("Informe seu email: ")
         fone = input("Informe seu telefone: ")
-        x = Cliente(id, nome, email, fone)
+        x = Cliente(0, nome, email, fone)
         Clientes.inserir(x)
 
 

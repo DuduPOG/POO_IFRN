@@ -68,9 +68,9 @@ class UI:
             elif op == 15:
                 UI.inserir_no_carrinho(cls)
             elif op == 16:
-                UI.visualizar_carrinho()
+                UI.visualizar_carrinho(cls)
             elif op == 17:
-                UI.confirmar_compra()
+                UI.confirmar_compra(cls)
 
 
 
@@ -228,11 +228,17 @@ class UI:
         #atualizar o total da venda (carrinho)
         subtotal = qtd * preco
         cls.carrinho.total += subtotal
-        Vendas.salvar()
+        Vendas.atualizar()
 
-
+    @staticmethod
     def confirmar_comprar(cls):
-        
+        cls.carrinho.carrinho = False
+        Vendas.atualizar(cls.carrinho)
+        for item in VendaItens.listar():
+            if item.id_venda == cls.carrinho.id:
+                produto = Produtos.listar_id(item.id_produto)
+                produto.estoque -= item.qtd
+                Produtos.atualizar(produto)
         pass
     # dever de casa, na venda (carrinho), colocar o atributo carrinho para False
     #percorrer os itens da venda (vendaitem.qtd) e baixar o estoque no cadastro de produto (produto.estoque)
