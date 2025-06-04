@@ -5,9 +5,9 @@ class Produto:
     def __init__(self, id, desc, preco, estoque, id_categoria):
         self.id = id
         self.desc = desc
-        self.preco = preco
-        self.estoque = estoque
-        self.id_categoria = id_categoria
+        self.preco = float(preco)
+        self.estoque = int(estoque)
+        self.id_categoria = int(id_categoria)
 
 
     def __str__(self):

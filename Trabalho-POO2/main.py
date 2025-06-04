@@ -1,4 +1,3 @@
-from datetime import datetime
 from categoria import Categoria, Categorias
 from cliente import Cliente, Clientes
 from produto import Produto, Produtos
@@ -34,7 +33,6 @@ class UI:
     @staticmethod
     def main():
         op = 0
-        cls = 0
         while op != 100:
             op = UI.menu()
             if op == 1:
@@ -66,11 +64,11 @@ class UI:
             elif op == 14:
                 UI.listar_compras()
             elif op == 15:
-                UI.inserir_no_carrinho(cls)
+                UI.inserir_no_carrinho()
             elif op == 16:
-                UI.visualizar_carrinho(cls)
+                UI.visualizar_carrinho()
             elif op == 17:
-                UI.confirmar_compra(cls)
+                UI.confirmar_compra()
 
 
 
@@ -149,8 +147,8 @@ class UI:
     def produto_inserir():#Create
         #id = int(input("Informe o ID do cliente: "))
         desc = input("Informe uma descrição para seu produto: ")
-        preco = input("Informe seu preço: ")
-        estoque = input("Informe a quantidade no estoque: ")
+        preco = float(input("Informe seu preço: "))
+        estoque = int(input("Informe a quantidade no estoque: "))
         UI.categoria_listar()
         id_categoria = int(input("Informe o ID da categoria desejada: "))
         x = Produto(0, desc, preco, estoque, id_categoria)
@@ -170,8 +168,8 @@ class UI:
         UI.produto_listar
         id = int(input("Informe o ID do produto a ser atualizado: "))
         desc = input("Informe sua nova descrição: ")
-        preco = input("Informe seu novo preço: ")
-        estoque = input("Informe sua nova quantidade em estoque: ")
+        preco = float(input("Informe seu novo preço: "))
+        estoque = int(input("Informe sua nova quantidade em estoque: "))
         UI.categoria_listar()
         id_categoria = int(input("Informe o ID do novo produto: "))
         c = Produto(id, desc, preco, estoque, id_categoria)
@@ -207,7 +205,7 @@ class UI:
             for item in VendaItens.listar():
                 if item.id_venda == cls.carrinho.id:
                     id_produto = item.id_produto
-                    descricao = Produtos.listar_id(id_produto).descricao
+                    descricao = Produtos.listar_id(id_produto).desc
                     print(f"   {descricao} - Quantidade: {item.qtd} - Preço: R$ {item.preco:.2f}")
         else:
             print("Você precisar criar um carrinho primeiro!")
@@ -215,12 +213,12 @@ class UI:
 
 
     
-    @staticmethod
-    def inserir_no_carrinho(cls):#Delete
+    @classmethod
+    def inserir_no_carrinho(cls):
         UI.produto_listar()
         id_produto = int(input("Informe o id do produto desejado: "))
         qtd = int(input("Informe a quantidade desejada: "))
-        preco = Produtos.listar_id(id_produto).preco
+        preco = float(Produtos.listar_id(id_produto).preco)
         vi = VendaItem(0, qtd, preco)
         vi.id_venda = cls.carrinho.id
         vi.id_produto = id_produto
@@ -228,10 +226,13 @@ class UI:
         #atualizar o total da venda (carrinho)
         subtotal = qtd * preco
         cls.carrinho.total += subtotal
-        Vendas.atualizar()
+        Vendas.atualizar(cls.carrinho)
 
-    @staticmethod
-    def confirmar_comprar(cls):
+    @classmethod
+    def confirmar_compra(cls):
+        if cls.carrinho is None:
+            print("Nenhum carrinho iniciado!")
+            return
         cls.carrinho.carrinho = False
         Vendas.atualizar(cls.carrinho)
         for item in VendaItens.listar():
