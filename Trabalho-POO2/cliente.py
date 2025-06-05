@@ -7,6 +7,7 @@ class Cliente:
         self.nome = nome
         self.email = email
         self.fone = fone
+        #senha
 
 
     def __str__(self):
@@ -68,7 +69,7 @@ class Clientes:
             with open("clientes.json", mode="r") as arquivo:
                 s = json.load(arquivo)
                 for dic in s: 
-                    c = Cliente(dic["id"], dic["nome"], dic["email"], dic["fone"])
+                    c = Cliente(dic["id"], dic["nome"], dic["email"], dic["fone"])#mexer aqui
                     cls.objetos.append(c)
         except FileNotFoundError:
             pass

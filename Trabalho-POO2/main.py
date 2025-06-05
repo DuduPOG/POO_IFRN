@@ -1,14 +1,21 @@
-from categoria import Categoria, Categorias
-from cliente import Cliente, Clientes
-from produto import Produto, Produtos
-from venda import Venda, Vendas
-from venda_item import VendaItem, VendaItens
-from login import Login, Logins
+#from categoria import Categoria, Categorias
+#from cliente import Cliente, Clientes
+#from produto import Produto, Produtos
+#from venda import Venda, Vendas
+#from venda_item import VendaItem, VendaItens
+#from login import Login, Logins
+
+from view import View
+#abrir conta
+#sair do sistema (UI)
+
 
 class UI:
     carrinho = None #atributo de classe
+    #user = None
     @staticmethod
     def menu():
+        #dividir a UI em cliente, admin e visitante
         s = f"\nQual das seguintes opções você deseja executar?\n"
         s += f"\n          1. Inserir cliente;\n"
         s += f"          2. Excluir cliente;\n"
@@ -37,6 +44,7 @@ class UI:
     
     @staticmethod
     def main():
+        View.cadastrar_admin()
         op = 0
         while op != 100:
             op = UI.menu()
@@ -88,20 +96,22 @@ class UI:
     #CRUD de cliente
     @staticmethod
     def cliente_inserir():#Create
-        id = int(input("Informe o ID do cliente: "))
+        id = 0
         nome = input("Informe seu nome: ")
         email = input("Informe seu email: ")
         fone = input("Informe seu telefone: ")
-        x = Cliente(id, nome, email, fone)
-        Clientes.inserir(x)
+        #x = Cliente(id, nome, email, fone)
+        #Clientes.inserir(x)
+        View.cliente_inserir(id, nome, email, fone)
 
     
     @staticmethod
     def cliente_excluir():#Delete
         UI.cliente_listar
         id = int(input("Informe o ID do cliente que será excluído: "))
-        c = Cliente(id, "", "", "")
-        Clientes.excluir(c)
+        #c = Cliente(id, "", "", "")
+        #Clientes.excluir(c)
+        View.cliente_excluir(id, "", "", "")
 
 
     @staticmethod
@@ -111,14 +121,17 @@ class UI:
         nome = input("Informe seu novo nome: ")
         email = input("Informe seu novo email: ")
         fone = input("Informe seu novo telefone: ")
-        c = Cliente(id, nome, email, fone)
-        Clientes.atualizar(c)
+        #c = Cliente(id, nome, email, fone)
+        #Clientes.atualizar(c)
+        View.cliente_atualizar(id, nome, email, fone)
 
 
     @staticmethod
     def cliente_listar():#Read
         print("Estes são todos os clientes cadastrados:")
-        for c in Clientes.listar():
+        #for c in Clientes.listar():
+         #   print(c)
+        for c in View.cliente_listar():
             print(c)
 
 
@@ -213,7 +226,7 @@ class UI:
 
     @classmethod
     def visualizar_carrinho(cls):
-        if cls.carrinho != None:
+        if cls.carrinho != None: #if para o verificar as vendas do cliente logado
             print("O produto vai ser inserido nesse carrinho: ", cls.carrinho)
             for item in VendaItens.listar():
                 if item.id_venda == cls.carrinho.id:
@@ -232,6 +245,8 @@ class UI:
             UI.produto_listar()
             id_produto = int(input("Informe o id do produto desejado: "))
             qtd = int(input("Informe a quantidade desejada: "))
+            View.inserir_no_carrinho(id_produto, qtd)
+            """
             preco = float(Produtos.listar_id(id_produto).preco)
             vi = VendaItem(0, qtd, preco)
             vi.id_venda = cls.carrinho.id
@@ -241,6 +256,7 @@ class UI:
             subtotal = qtd * preco
             cls.carrinho.total += subtotal
             Vendas.atualizar(cls.carrinho)
+            """
         else:
             print("Você precisa criar um carrinho primeiro!")
             return
@@ -294,7 +310,6 @@ class UI:
         print("Estes são todos os logins feitos:")
         for c in Logins.listar():
             print(c)
-
 
 
 UI.main()
