@@ -140,16 +140,14 @@ class UI:
     def categoria_inserir():#Create
         #id = int(input("Informe o ID do cliente: "))
         desc = input("Informe uma descrição para sua categoria: ")
-        x = Categoria(0, desc)
-        Categorias.inserir(x)
+        View.categoria_inserir(desc)
 
     
     @staticmethod
     def categoria_excluir():#Delete
         UI.categoria_listar
         id = int(input("Informe o ID da categoria que será excluída: "))
-        c = Categoria(id, "")
-        Categorias.excluir(c)
+        View.categoria_excluir(id, "")
 
 
     @staticmethod
@@ -157,14 +155,13 @@ class UI:
         UI.categoria_listar
         id = int(input("Informe o ID da categoria a ser atualizada: "))
         desc = input("Informe sua nova descrição: ")
-        c = Categoria(id, desc)
-        Categorias.atualizar(c)
+        View.categoria_atualizar(id, desc)
 
 
     @staticmethod
     def categoria_listar():#Read
         print("Estas são todas as categorias existentes:")
-        for c in Categorias.listar():
+        for c in View.categoria_listar():
             print(c)
 
 
@@ -177,16 +174,14 @@ class UI:
         estoque = int(input("Informe a quantidade no estoque: "))
         UI.categoria_listar()
         id_categoria = int(input("Informe o ID da categoria desejada: "))
-        x = Produto(0, desc, preco, estoque, id_categoria)
-        Produtos.inserir(x)
+        View.produto_inserir(desc, preco, estoque, id_categoria)
 
     
     @staticmethod
     def produto_excluir():#Delete
         UI.produto_listar
         id = int(input("Informe o ID do produto que será excluído: "))
-        c = Produto(id, "", "", "", "")
-        Produtos.excluir(c)
+        View.produto_excluir(id, "", "", "", "")
 
 
     @staticmethod
@@ -198,47 +193,32 @@ class UI:
         estoque = int(input("Informe sua nova quantidade em estoque: "))
         UI.categoria_listar()
         id_categoria = int(input("Informe o ID do novo produto: "))
-        c = Produto(id, desc, preco, estoque, id_categoria)
-        Produtos.atualizar(c)
+        View.produto_atualizar(id, desc, preco, estoque, id_categoria)
 
 
     @staticmethod
     def produto_listar():#Read
         print("Estes são todos os produtos disponíveis:")
-        for c in Produtos.listar():
+        for c in View.produto_listar():
             print(c)
 
 
     #CRUD de Venda
     @classmethod
     def iniciar_compra(cls):#Create
-        v = Venda(0)        
-        Vendas.inserir(v)
-        cls.carrinho = v
+        View.iniciar_carrinho(cls)
 
 
     @staticmethod
     def listar_compras():#Read
-        print("Estas são todas as Vendas:")
-        for c in Vendas.listar():
-            print(c)
+        View.listar_carrinho()
 
 
     @classmethod
-    def visualizar_carrinho(cls):
-        if cls.carrinho != None: #if para o verificar as vendas do cliente logado
-            print("O produto vai ser inserido nesse carrinho: ", cls.carrinho)
-            for item in VendaItens.listar():
-                if item.id_venda == cls.carrinho.id:
-                    id_produto = item.id_produto
-                    descricao = Produtos.listar_id(id_produto).desc
-                    print(f"   {descricao} - Quantidade: {item.qtd} - Preço: R$ {item.preco:.2f}")
-        else:
-            print("Você precisar criar um carrinho primeiro!")
-            return
+    def visualizar_carrinho(cls):#Read
+        View.visualizar_carrinho(cls)
 
 
-    
     @classmethod
     def inserir_no_carrinho(cls):
         if cls.carrinho != None:
@@ -263,17 +243,7 @@ class UI:
 
     @classmethod
     def confirmar_compra(cls):
-        if cls.carrinho is None:
-            print("Nenhum carrinho iniciado!")
-            return
-        cls.carrinho.carrinho = False
-        Vendas.atualizar(cls.carrinho)
-        for item in VendaItens.listar():
-            if item.id_venda == cls.carrinho.id:
-                produto = Produtos.listar_id(item.id_produto)
-                produto.estoque -= item.qtd
-                Produtos.atualizar(produto)
-        pass
+        View.confirmar_compra(cls.carrinho)
     # dever de casa, na venda (carrinho), colocar o atributo carrinho para False
     #percorrer os itens da venda (vendaitem.qtd) e baixar o estoque no cadastro de produto (produto.estoque)
 
@@ -283,16 +253,14 @@ class UI:
     def iniciar_login():#Create
         user = input("Insira um nome de usuário: ")
         password = input("Insira uma senha para seu login: ")
-        x = Login(0, user, password)
-        Logins.inserir(x)
+        View.login_inserir(user, password)
 
     
     @staticmethod
     def excluir_login():#Delete
         UI.listar_logins
         id = int(input("Informe o ID do login que será excluído: "))
-        c = Login(id, "", "")
-        Logins.excluir(c)
+        View.login_excluir(id)
 
 
     @staticmethod
@@ -301,14 +269,13 @@ class UI:
         id = input("Insira o ID do login que será atualizado: ")
         user = input("Insira um novo nome de usuário: ")
         password = input("Insira uma nova senha: ")
-        c = Login(id, user, password)
-        Logins.atualizar(c)
+        View.login_atualizar(id, user, password)
 
 
     @staticmethod
     def listar_logins():#Read
         print("Estes são todos os logins feitos:")
-        for c in Logins.listar():
+        for c in View.login_listar():
             print(c)
 
 
