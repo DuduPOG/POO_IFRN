@@ -28,4 +28,7 @@ class Retangulo:
     def calc_diagonal(self):
         return sqrt(self.__b ** 2 + self.__h ** 2)
     
+    def __str__(self):
+        return f"Base do retângulo: {self.__b} - Altura do retângulo: {self.__h}"
+    
     pass
