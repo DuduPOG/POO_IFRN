@@ -77,7 +77,7 @@ class View:
     def iniciar_carrinho(carrinho):
         v = Venda(0)
         Vendas.inserir(v)
-        carrinho = v
+        return v
     
 
     def listar_carrinho():
@@ -87,15 +87,19 @@ class View:
     
 
     def visualizar_carrinho(carrinho):
-        if carrinho != None: #if para o verificar as vendas do cliente logado
-            print("O produto vai ser inserido nesse carrinho: ", carrinho)
+        if carrinho is not None:
+            print(f"O produto vai ser inserido no carrinho ID: {carrinho.id} | Total: R$ {getattr(carrinho, 'total', 0):.2f}")
+            encontrou = False
             for item in VendaItens.listar():
                 if item.id_venda == carrinho.id:
+                    encontrou = True
                     id_produto = item.id_produto
                     descricao = Produtos.listar_id(id_produto).desc
                     print(f"   {descricao} - Quantidade: {item.qtd} - Preço: R$ {item.preco:.2f}")
+            if not encontrou:
+                print("Nenhum item neste carrinho ainda.")
         else:
-            print("Você precisar criar um carrinho primeiro!")
+            print("Você precisa criar um carrinho primeiro!")
             return
     
 

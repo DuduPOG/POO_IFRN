@@ -30,7 +30,7 @@ class UI:
         s += f"          11. Atualizar produto;\n"
         s += f"          12. Listar produtos;\n"
         s += f"\n          13. Iniciar carrinho de compras;\n"
-        s += f"          14. Listar os itens do pedido\n"
+        s += f"          14. Listar todas as vendas;\n"
         s += f"          15. Inserir produto no carrinho;\n"
         s += f"          16. Visualizar carrinho;\n"
         s += f"          17. Confirmar compra;\n"
@@ -206,7 +206,7 @@ class UI:
     #CRUD de Venda
     @classmethod
     def iniciar_compra(cls):#Create
-        View.iniciar_carrinho(cls)
+        View.iniciar_carrinho(cls.carrinho)
 
 
     @staticmethod
@@ -216,7 +216,7 @@ class UI:
 
     @classmethod
     def visualizar_carrinho(cls):#Read
-        View.visualizar_carrinho(cls)
+        View.visualizar_carrinho(cls.carrinho)
 
 
     @classmethod
