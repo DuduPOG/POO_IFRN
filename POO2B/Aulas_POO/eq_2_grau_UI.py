@@ -1,4 +1,4 @@
-from POO2B.Aulas_POO.eq_2_grau import Eq_2_grau
+from eq_2_grau import Eq_2_grau
 import streamlit as st
 
 class Eq_2_grau_UI:

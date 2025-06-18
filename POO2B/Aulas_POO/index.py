@@ -1,6 +1,6 @@
 import streamlit as st
-from POO2B.Aulas_POO.retanguloUI import RetanguloUI
-from POO2B.Aulas_POO.retanguloUI2 import RetanguloUI2
+from retanguloUI import RetanguloUI
+from retanguloUI2 import RetanguloUI2
 
 RetanguloUI.main()
 

@@ -1,4 +1,5 @@
 from math import sqrt
+
 class Retangulo:
     def __init__(self, b, h):
         self.set_base(b)
