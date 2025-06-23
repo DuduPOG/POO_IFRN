@@ -1,9 +1,9 @@
-from .models import Cliente, Clientes, Categoria, Categorias, Produto, Produtos, Venda, Vendas, VendaItem, VendaItens
-# from models.produto import Produto, Produtos
-# from models.venda import Venda, Vendas
-# from models.venda_item import VendaItem, VendaItens
-# from models.cliente import Cliente, Clientes
-# from models.categoria import Categoria, Categorias
+from models.cliente import Cliente, Clientes
+from models.produto import Produto, Produtos
+from models.venda import Venda, Vendas
+from models.venda_item import VendaItem, VendaItens
+from models.cliente import Cliente, Clientes
+from models.categoria import Categoria, Categorias
 
 class View:
 
