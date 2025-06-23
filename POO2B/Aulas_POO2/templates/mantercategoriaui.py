@@ -5,6 +5,7 @@ import time
 
 class ManterCategoriaUI:
     
+    @staticmethod
     def main():
         st.header("Cadastro de Categorias")
         tab1, tab2, tab3, tab4 = st.tabs(["Listar", "Inserir", "Atualizar", "Excluir"])
@@ -37,7 +38,7 @@ class ManterCategoriaUI:
             st.write("Nenhuma categoria cadastrada")
         else:
             op = st.selectbox("Atualização de cliente", categorias)
-            desc = st.text_input("Informe a nova descrição", op.desc)
+            desc = st.text_input("Informe a nova descrição")
             if st.button("Atualizar"):
                 View.categoria_atualizar(op.id, desc)
                 st.success("Categoria atualizada com sucesso")

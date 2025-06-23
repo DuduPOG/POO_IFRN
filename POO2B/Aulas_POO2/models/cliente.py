@@ -2,18 +2,20 @@ import json
 
 class Cliente:
 
-    def __init__(self, id, nome, email, fone):
+    def __init__(self, id, nome, email, fone, senha):
         self.set_id(id)
         self.set_nome(nome)
         self.set_email(email)
         self.set_fone(fone)
+        self.set_senha(senha)
 
     def to_json(self):
         return {
             "id": self.get_id(),
             "nome": self.get_nome(),
             "email": self.get_email(),
-            "fone": self.get_fone()
+            "fone": self.get_fone(),
+            "senha": self.get_senha()
         }
 
     def set_id(self, id):
@@ -53,9 +55,18 @@ class Cliente:
 
     def get_fone(self):
         return self.__fone
+    
+    def set_senha(self, senha):
+        if senha == "":
+            raise ValueError("Senha inválida!")
+        else:
+            self.__senha = senha
+
+    def get_senha(self):
+        return self.__senha
 
     def __str__(self):
-        return f"{self.__id} - {self.__nome} - {self.__email} - {self.__fone}"
+        return f"{self.__id} - {self.__nome} - {self.__email} - {self.__fone} - {self.__senha}"
 
 class Clientes:
 
@@ -107,7 +118,7 @@ class Clientes:
             with open("clientes.json", mode="r") as arquivo:
                 s = json.load(arquivo)
                 for dic in s:
-                    c = Cliente(dic["id"], dic["nome"], dic["email"], dic["fone"])
+                    c = Cliente(dic["id"], dic["nome"], dic["email"], dic["fone"], dic["senha"])
                     cls.objetos.append(c)
         except (FileNotFoundError, json.JSONDecodeError):
             pass

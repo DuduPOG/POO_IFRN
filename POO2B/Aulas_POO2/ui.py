@@ -1,7 +1,8 @@
-from .models import Produto, Produtos, Venda, Vendas, VendaItem, VendaItens, Categoria, Categorias
-#from models.produto import Produto, Produtos
-#from models.venda import Venda, Vendas
-#from models.venda_item import VendaItem, VendaItens
+from models.cliente import Cliente, Clientes
+from models.categoria import Categoria, Categorias
+from models.produto import Produto, Produtos
+from models.venda import Venda, Vendas
+from models.venda_item import VendaItem, VendaItens
 
 from view import View
 
@@ -174,9 +175,11 @@ class UI:  # Visão/Apresentação - Não tem instância
         descricao = input("Informe a descrição: ")
         c = Categoria(0, descricao)
         Categorias.inserir(c)
+    
     @staticmethod # R - read
     def categoria_listar(): 
         for c in Categorias.listar(): print(c)
+    
     @staticmethod # U - update
     def categoria_atualizar(): 
         UI.categoria_listar()
@@ -184,6 +187,7 @@ class UI:  # Visão/Apresentação - Não tem instância
         descricao = input("Informe a nova descrição: ")
         c = Categoria(id, descricao)
         Categorias.atualizar(c)
+    
     @staticmethod # D - delete
     def categoria_excluir(): 
         UI.categoria_listar()

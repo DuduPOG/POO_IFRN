@@ -5,6 +5,7 @@ import time
 
 class ManterProdutoUI:
 
+    @staticmethod
     def main():
         st.header("Cadastro de Produtos")
         tab1, tab2, tab3, tab4 = st.tabs(["Listar", "Inserir", "Atualizar", "Excluir"])
@@ -28,7 +29,7 @@ class ManterProdutoUI:
         desc = st.text_input("Informe a descrição: ")
         preco = st.number_input("Informe seu preço: ")
         estoque = st.number_input("Informe o estoque: ")
-        id_categoria = int(st.selectbox("Selecione a categoria", View.categoria_listar()))
+        id_categoria = st.selectbox("Selecione a categoria", View.categoria_listar())
         if st.button("Cadastrar"):
             View.produto_inserir(nome, desc, preco, estoque, id_categoria)
             st.success("Produto inserido com sucesso")
@@ -40,11 +41,11 @@ class ManterProdutoUI:
         if len(produto) == 0: 
             st.write("Nenhum produto cadastrado")
         else:
-            op = st.selectbox("Atualização de cliente", produto)
-            nome = st.text_input("Informe o novo nome", op.nome)
-            preco = st.number_input("Informe o novo preço", op.email)
-            estoque = st.number_input("Informe o novo estoque", op.fone)
-            id_categoria = int(st.selectbox("Selecione a categoria", View.categoria_listar(), index=op.id_categoria))
+            op = st.selectbox("Atualização de cliente")
+            nome = st.text_input("Informe o novo nome")
+            preco = st.number_input("Informe o novo preço")
+            estoque = st.number_input("Informe o novo estoque")
+            id_categoria = st.selectbox("Selecione a categoria", View.categoria_listar(), index=op.id_categoria)
             if st.button("Atualizar"):
                 View.produto_atualizar(op.id, nome, preco, estoque, id_categoria)
                 st.success("Produto atualizado com sucesso")

@@ -5,6 +5,7 @@ import time
 
 class ManterClienteUI:
     
+    @staticmethod
     def main():
         st.header("Cadastro de Clientes")
         tab1, tab2, tab3, tab4 = st.tabs(["Listar", "Inserir", "Atualizar", "Excluir"])
@@ -18,17 +19,21 @@ class ManterClienteUI:
         if len(clientes) == 0: 
             st.write("Nenhum cliente cadastrado")
         else:    
-            dic = []
-            for obj in clientes: dic.append(obj.__dict__)
-            df = pd.DataFrame(dic)
+            list_dic = []
+            for obj in clientes:
+                dic_cliente = obj.__dict__
+                del dic_cliente["senha"]
+                list_dic.append(dic_cliente)
+            df = pd.DataFrame(list_dic)
             st.dataframe(df)
             
     def inserir():
         nome = st.text_input("Informe o nome: ")
         email = st.text_input("Informe o e-mail: ")
         fone = st.text_input("Informe o fone: ")
+        senha = st.text_input("Informe a senha: ")
         if st.button("Cadastrar"):
-            View.cliente_inserir(nome, email, fone)
+            View.cliente_inserir(nome, email, fone, senha)
             st.success("Cliente inserido com sucesso")
             time.sleep(2)
             st.rerun()
@@ -39,11 +44,12 @@ class ManterClienteUI:
             st.write("Nenhum cliente cadastrado")
         else:
             op = st.selectbox("Atualização de cliente", clientes)
-            nome = st.text_input("Informe o novo nome", op.nome)
-            email = st.text_input("Informe o novo e-mail", op.email)
-            fone = st.text_input("Informe o novo fone", op.fone)
+            nome = st.text_input("Informe o novo nome: ")
+            email = st.text_input("Informe o novo e-mail: ")
+            fone = st.text_input("Informe o novo fone: ")
+            senha = st.text_input("Informe a nova senha: ")
             if st.button("Atualizar"):
-                View.cliente_atualizar(op.id, nome, email, fone)
+                View.cliente_atualizar(op.id, nome, email, fone, senha)
                 st.success("Cliente atualizado com sucesso")
                 time.sleep(2)
                 st.rerun()

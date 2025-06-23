@@ -8,6 +8,13 @@ from models.categoria import Categoria, Categorias
 class View:
 
     @staticmethod
+    def cliente_autenticar(email, senha):
+        for c in View.cliente_listar():
+            if c.get_email() == email and c.get_senha() == senha:
+                return {"id" : c.get_id(), "nome" : c.get_nome()}
+        return None
+
+    @staticmethod
     def cadastrar_admin():
         for cliente in Clientes.listar():
             if cliente.get_email() == "admin":
@@ -15,8 +22,8 @@ class View:
         View.cliente_inserir("admin", "admin", "1234")
 
     @staticmethod
-    def cliente_inserir(nome, email, fone):
-        x = Cliente(0, nome, email, fone)
+    def cliente_inserir(nome, email, fone, senha):
+        x = Cliente(0, nome, email, fone, senha)
         Clientes.inserir(x)
 
     @staticmethod
@@ -24,8 +31,8 @@ class View:
         return Clientes.listar()
 
     @staticmethod
-    def cliente_atualizar(id, nome, email, fone):
-        c = Cliente(id, nome, email, fone)
+    def cliente_atualizar(id, nome, email, fone, senha):
+        c = Cliente(id, nome, email, fone, senha)
         Clientes.atualizar(c)
 
     @staticmethod
