@@ -19,7 +19,7 @@ class View:
         for cliente in Clientes.listar():
             if cliente.get_email() == "admin":
                 return
-        View.cliente_inserir("admin", "admin", "1234")
+        View.cliente_inserir("admin", "admin", "84911223344","1234")
 
     @staticmethod
     def cliente_inserir(nome, email, fone, senha):
